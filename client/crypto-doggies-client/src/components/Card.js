@@ -8,20 +8,19 @@ class Cards extends Component {
     doggies: [],
     amount: 0,
     tokenSold: {},
-    confirmed: false
+    tokenSold: false
   };
 
   async componentWillMount() {
     await this.loaddoggies();
   }
 
-  async loaddoggyes() {
+  async loaddoggies() {
     let total = await instance.methods.totalSupply().call();
 
     for (let i = 0; i < total; i++) {
       const doggy = await this.loadDoggyDetails(i);
       this.setState({ doggies: [...this.state.doggies, doggy] });
-      //console.log(this.state.doggyes);
     }
   }
 
@@ -59,36 +58,9 @@ class Cards extends Component {
           from: account,
           value: web3.utils.toWei(amount.toString(), "ether")
         });
-        instance.once(
-          "TokenSold",
-          {
-            filter: {},
-            fromBlock: 0
-          },
-          function(error, event) {
-            let tokenSold = event.returnValues;
-            // const eventObject = {
-            //   tokenId: event.returnValues[0],
-            //   tokenName: event.returnValues[1],
-            //   dna: event.returnValues[2],
-            //   sellingPrice: event.returnValues[3],
-            //   price: event.returnValues[4],
-            //   oldOwner: event.returnValues[5],
-            //   newOwner: event.returnValues[6]
-            // };
 
-            // this.setState({
-            //   confirmed: true,
-            //   tokenSold: event.returnValues
-            // });
-            console.log(event);
-            console.log(tokenSold.dna);
-            //console.log(typeof event.returnValues);
-            //console.log(eventObject);
-            //return eventObject;
-          }
-        );
         this.setState({ amount: 0 });
+        this.setState({ tokenSold: true });
       } else {
         console.log(new Error("Invalid amount"));
       }
@@ -99,27 +71,57 @@ class Cards extends Component {
 
   render() {
     return (
-      <div className="row text-center">
+      <div className="row justify-content-center">
         {this.state.doggies.map(doggy => {
           return (
-            <div key={doggy.id} className="col-md-4">
-              <div className="card" style={{ width: "18rem" }}>
-                <div className="row" key={doggy.id}>
+            <div key={doggy.id} className="col-md-4 align-content-center">
+              <div className="card mb-5" style={{ width: "19rem" }}>
+                <div className="row justify-content-center" key={doggy.id}>
                   <img
                     src={"www.jpg"}
                     className="card-img-top"
                     alt="Doggy image"
                   />
                   <div className="card-body">
-                    <h5 className="card-title">Name: {doggy.name} </h5>
-                    <p>DNA: {doggy.dna} </p>
-                    {/* <p className="card-text">Price: Ξ {doggy.price} </p> */}
-
-                    <p className="card-text">
+                    <h5
+                      className="card-title"
+                      style={{
+                        fontSize: 12,
+                        color: "green",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      Name: {doggy.name}{" "}
+                    </h5>
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "green",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      DNA: {doggy.dna}{" "}
+                    </p>
+                    <p
+                      className="card-text"
+                      style={{
+                        fontSize: 12,
+                        color: "green",
+                        fontWeight: "bold"
+                      }}
+                    >
                       {" "}
                       Next Price: Ξ {doggy.nextPrice}{" "}
                     </p>
-                    <p style={{ fontSize: 12 }}>Owner: {doggy.owner} </p>
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "green",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      Owner: {doggy.owner}{" "}
+                    </p>
                     <p className="card-text">
                       <input
                         type="text"
@@ -128,11 +130,11 @@ class Cards extends Component {
                       />
                     </p>
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary btn-block"
                       onClick={() => this.handlePurchase(doggy.id)}
                     >
                       {" "}
-                      Buy{" "}
+                      BUY D0GGY{" "}
                     </button>
                   </div>
                 </div>

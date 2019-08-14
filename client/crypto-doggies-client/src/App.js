@@ -44,12 +44,28 @@ class App extends Component {
     return (
       <div className="App ">
         <SearchAppBar />
+        <br />
         <div className="container ">
           <div className="row justify-content-center">
             <div className="col-md-5">
-              <h5>Contract Address: {this.state.contAddr}</h5>
+              <h5
+                style={{
+                  fontSize: 18,
+                  color: "gray",
+                  fontWeight: "bold"
+                }}
+              >
+                Contract Address: {this.state.contAddr}
+              </h5>
             </div>
-            <h5 className="col-md-5">
+            <h5
+              className="col-md-5"
+              style={{
+                fontSize: 18,
+                color: "gray",
+                fontWeight: "bold"
+              }}
+            >
               Admin Address: {this.state.account}
               {this.state.totalSupply}
             </h5>
@@ -57,7 +73,7 @@ class App extends Component {
           <br />
           <div className="row d-flex flex-row justify-content-center ">
             <div className="col-md-6">
-              <h5>Available CryptoDoggies</h5>
+              <h5>AVAILABLE DOGGIES</h5>
             </div>
           </div>
           <br />
